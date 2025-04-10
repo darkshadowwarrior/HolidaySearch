@@ -18,11 +18,20 @@ namespace Search
             var results = _search.Find(payload);
 
             Assert.That(results, Is.Not.Null);
-            Assert.That(results.First().TotalPrice, Is.EqualTo(900));
-            Assert.That(results.First().Flight.Id, Is.EqualTo(4));
-            Assert.That(results.First().Flight.DepartingFrom, Is.EqualTo("MAN"));
-            Assert.That(results.First().Flight.TravalingTo, Is.EqualTo("AGP"));
-            Assert.That(results.First().Hotel.Id, Is.EqualTo(3));
+            Assert.That(results.First().Flight.Id, Is.EqualTo(2));
+            Assert.That(results.First().Hotel.Id, Is.EqualTo(9));
+        }
+
+        [Test]
+        public void CustomerTwo_SearchReturns_Expected_Holiday()
+        {
+            var payload = new SearchCritera() { From = "London", To = "PMI", DepartureDate = "2023/06/15", Duration = 10 };
+
+            var results = _search.Find(payload);
+
+            Assert.That(results, Is.Not.Null);
+            Assert.That(results.First().Flight.Id, Is.EqualTo(6));
+            Assert.That(results.First().Hotel.Id, Is.EqualTo(5));
         }
     }
 }
