@@ -1,13 +1,14 @@
 ﻿using HolidaySearch.Helpers;
+using HolidaySearch.Interfaces;
 using HolidaySearch.Models;
 
 namespace HolidaySearch.Data
 {
-    public class HotelData
+    public class HotelData : IHotelData
     {
-        public static List<Hotel> GetHotels()
+        public List<Hotel> GetHotels()
         {
-            return JsonFileReader.ReadFromFile<List<Hotel>>("../../hotels.json");
+            return JsonFileReader.ReadFromFile<List<Hotel>>("hotels.json");
         }
     }
 }

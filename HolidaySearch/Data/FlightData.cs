@@ -8,7 +8,7 @@ namespace HolidaySearch.Data
     {
         public List<Flight> GetFlights()
         {
-            return JsonFileReader.ReadFromFile<List<Flight>>("../../flights.json");
+            return JsonFileReader.ReadFromFile<List<Flight>>("flights.json");
         }
     }
 }
