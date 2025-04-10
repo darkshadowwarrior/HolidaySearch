@@ -3,7 +3,7 @@ using HolidaySearch.Models;
 
 namespace Search
 {
-    public class HolidaySearch
+    public class HolidaySearch : IHolidaySearch
     {
         private IFlightService _flightService;
         private IHotelService _hotelService;
@@ -14,14 +14,11 @@ namespace Search
             _hotelService = hotelService;
         }
 
-        public List<Holiday> Find(SearchCritera payload)
+        public List<Holiday> Find(SearchCritera critera)
         {
-            var flights = _flightService.FilterFlights(payload.From, payload.To, payload.DepartureDate);
+            var flights = _flightService.FilterFlights(critera.From, critera.To, critera.DepartureDate);
 
-            var hotels = _hotelService.FilterHotels(payload.To, payload.DepartureDate, payload.Duration);
-
-
-
+            var hotels = _hotelService.FilterHotels(critera.To, critera.DepartureDate, critera.Duration);
 
             var holidays = (from flight in flights
                             from hotel in hotels

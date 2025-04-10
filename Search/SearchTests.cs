@@ -75,5 +75,45 @@ namespace Search
             Assert.That(results.First().Flight.Id, Is.EqualTo(6));
             Assert.That(results.First().Hotel.Id, Is.EqualTo(5));
         }
+
+        [Test]
+        public void CustomerThree_SearchReturns_Expected_Holiday()
+        {
+            _flightService = new Mock<IFlightService>();
+            _flightService.Setup(fs => fs.FilterFlights(It.IsAny<string[]>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Flight>()
+            {
+                new() { Id = 1, DepartingFrom = "MAN", TravalingTo = "TFS", DepartureDate = new DateTime(2023,07,01), Price = 470, Airline = "First Class Air" },
+                new() { Id = 2, DepartingFrom = "MAN", TravalingTo = "AGP", DepartureDate = new DateTime(2023,07,01), Price = 245, Airline = "Oceanic Airlines" },
+                new() { Id = 3, DepartingFrom = "MAN", TravalingTo = "PMI", DepartureDate = new DateTime(2023,06,15), Price = 170, Airline = "Trans American Airlines" },
+                new() { Id = 4, DepartingFrom = "LTN", TravalingTo = "PMI", DepartureDate = new DateTime(2023,06,15), Price = 153, Airline = "Trans American Airlines" },
+                new() { Id = 5, DepartingFrom = "MAN", TravalingTo = "PMI", DepartureDate = new DateTime(2023,06,15), Price = 130, Airline = "Fresh Airways" },
+                new() { Id = 6, DepartingFrom = "LGW", TravalingTo = "PMI", DepartureDate = new DateTime(2023,06,15), Price = 75, Airline = "Fresh Airways" },
+                new() { Id = 7, DepartingFrom = "MAN", TravalingTo = "LPA", DepartureDate = new DateTime(2022,11,10), Price = 125, Airline = "Trans American Airlines" },
+                new() { Id = 8, DepartingFrom = "MAN", TravalingTo = "LPA", DepartureDate = new DateTime(2023,11,10), Price = 175, Airline = "Fresh Airways" },
+                new() { Id = 9, DepartingFrom = "MAN", TravalingTo = "AGP", DepartureDate = new DateTime(2023,04,11), Price = 140, Airline = "Fresh Airways" },
+                new() { Id = 10, DepartingFrom = "LGW", TravalingTo = "AGP", DepartureDate = new DateTime(2023,07,01), Price = 225, Airline = "First Class Air" },
+                new() { Id = 11, DepartingFrom = "LGW", TravalingTo = "AGP", DepartureDate = new DateTime(2023,07,01), Price = 155, Airline = "First Class Air" },
+                new() { Id = 12, DepartingFrom = "MAN", TravalingTo = "AGP", DepartureDate = new DateTime(2023,10,25), Price = 202, Airline = "Trans American Airlines" },
+            });
+
+            _holidayService = new Mock<IHotelService>();
+            _holidayService.Setup(fs => fs.FilterHotels(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(new List<Hotel>()
+            {
+                new() { Id = 6, Name = "Club Maspalomas Suites and Spa", ArrivalDate = new DateTime(2022, 11, 10), PricePerNight = 75, Nights = 14, LocalAirports = ["LPA"] },
+                new() { Id = 7, Name = "Club Maspalomas Suites and Spa", ArrivalDate = new DateTime(2022, 09, 10), PricePerNight = 76, Nights = 14, LocalAirports = ["LPA"] },
+                new() { Id = 8, Name = "Boutique Hotel Cordial La Peregrina", ArrivalDate = new DateTime(2022, 10, 10), PricePerNight = 45, Nights = 7  },
+
+            });
+
+            _search = new HolidaySearch(_flightService.Object, _holidayService.Object);
+
+            var payload = new SearchCritera() { From = [], To = "LPA", DepartureDate = "2022/11/10", Duration = 14 };
+
+            var results = _search.Find(payload);
+
+            Assert.That(results, Is.Not.Null);
+            Assert.That(results.First().Flight.Id, Is.EqualTo(7));
+            Assert.That(results.First().Hotel.Id, Is.EqualTo(6));
+        }
     }
 }

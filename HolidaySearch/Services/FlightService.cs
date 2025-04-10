@@ -14,7 +14,14 @@ namespace HolidaySearch.Services
 
         public List<Flight> FilterFlights(string[] departureCodes, string arrivingAt, string departureDate)
         {
-            return _flightData.GetFlights().Where(f => departureCodes.Contains(f.DepartingFrom) && f.TravalingTo == arrivingAt && f.DepartureDate >= Convert.ToDateTime(departureDate)).ToList();                            
+            var flights = _flightData.GetFlights().Where(f => f.TravalingTo == arrivingAt && f.DepartureDate >= Convert.ToDateTime(departureDate));
+
+            if(departureCodes.Any())
+            {
+                flights = flights.Where(f => departureCodes.Contains(f.DepartingFrom));
+            }
+
+            return flights.ToList();
         }
     }
 }
