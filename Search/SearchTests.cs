@@ -20,7 +20,7 @@ namespace Search
         public void CustomerOne_SearchReturns_Expected_Holiday()
         {
             _flightService = new Mock<IFlightService>();
-            _flightService.Setup(fs => fs.FilterFlights(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Flight>()
+            _flightService.Setup(fs => fs.FilterFlights(It.IsAny<string[]>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Flight>()
             {
                 new() { Id = 2, Airline = "Oceanic Airlines", DepartingFrom = "MAN", TravalingTo = "AGP", Price = 245, DepartureDate = new DateTime(2023,7,1) },
                 new Flight() { Id = 12, Airline = "Trans American Airlines", DepartingFrom = "MAN", TravalingTo = "AGP", Price = 202, DepartureDate = new DateTime(2023,10,25) }
@@ -37,7 +37,7 @@ namespace Search
 
             _search = new HolidaySearch(_flightService.Object, _holidayService.Object);
 
-            var payload = new SearchCritera() { From = "MAN", To = "AGP", DepartureDate = "2023/07/01", Duration = 7 };
+            var payload = new SearchCritera() { From = ["MAN"], To = "AGP", DepartureDate = "2023/07/01", Duration = 7 };
 
             var results = _search.Find(payload);
 
@@ -50,7 +50,7 @@ namespace Search
         public void CustomerTwo_SearchReturns_Expected_Holiday()
         {
             _flightService = new Mock<IFlightService>();
-            _flightService.Setup(fs => fs.FilterFlights(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Flight>()
+            _flightService.Setup(fs => fs.FilterFlights(It.IsAny<string[]>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new List<Flight>()
             {
                 new() { Id = 2, Airline = "Oceanic Airlines", DepartingFrom = "MAN", TravalingTo = "AGP", Price = 245, DepartureDate = new DateTime(2023,7,1) },
                 new Flight() { Id = 12, Airline = "Trans American Airlines", DepartingFrom = "MAN", TravalingTo = "AGP", Price = 202, DepartureDate = new DateTime(2023,10,25) }
@@ -67,7 +67,7 @@ namespace Search
 
             _search = new HolidaySearch(_flightService.Object, _holidayService.Object);
 
-            var payload = new SearchCritera() { From = "London", To = "PMI", DepartureDate = "2023/06/15", Duration = 10 };
+            var payload = new SearchCritera() { From = ["LTN", "LGW"], To = "PMI", DepartureDate = "2023/06/15", Duration = 10 };
 
             var results = _search.Find(payload);
 
