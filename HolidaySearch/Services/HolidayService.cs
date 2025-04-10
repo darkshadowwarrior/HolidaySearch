@@ -1,14 +1,14 @@
 ﻿using HolidaySearch.Interfaces;
 using HolidaySearch.Models;
 
-namespace Search
+namespace HolidaySearch.Services
 {
-    public class HolidaySearch : IHolidaySearch
+    public class HolidayService : IHolidayService
     {
         private IFlightService _flightService;
         private IHotelService _hotelService;
 
-        public HolidaySearch(IFlightService flightService, IHotelService hotelService)
+        public HolidayService(IFlightService flightService, IHotelService hotelService)
         {
             _flightService = flightService;
             _hotelService = hotelService;
@@ -22,18 +22,18 @@ namespace Search
 
             var holidays = (from flight in flights
                             from hotel in hotels
-                            where (hotel.ArrivalDate >= flight.DepartureDate && hotel.ArrivalDate < flight.DepartureDate.AddDays(2))
+                            where hotel.ArrivalDate >= flight.DepartureDate && hotel.ArrivalDate < flight.DepartureDate.AddDays(2)
                             select new Holiday
-                            { 
+                            {
                                 Flight = flight,
                                 Hotel = hotel,
-                                TotalPrice = flight.Price + (hotel.PricePerNight * hotel.Nights)
+                                TotalPrice = flight.Price + hotel.PricePerNight * hotel.Nights
                             })
                             .OrderBy(holiday => holiday.TotalPrice)
                             .ToList();
 
             return holidays;
-                            
+
         }
     }
 }

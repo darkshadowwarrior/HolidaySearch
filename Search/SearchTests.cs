@@ -1,12 +1,13 @@
 using HolidaySearch.Interfaces;
 using HolidaySearch.Models;
+using HolidaySearch.Services;
 using Moq;
 
 namespace Search
 {
     public class Tests
     {
-        private HolidaySearch _search;
+        private HolidayService _search;
         private Mock<IFlightService> _flightService;
         private Mock<IHotelService> _holidayService;
 
@@ -35,7 +36,7 @@ namespace Search
                 new() { Id = 12, Name = "MS Maestranza Hotel", ArrivalDate = new DateTime(2023, 7, 1), PricePerNight = 45, Nights = 14  },
             });
 
-            _search = new HolidaySearch(_flightService.Object, _holidayService.Object);
+            _search = new HolidayService(_flightService.Object, _holidayService.Object);
 
             var payload = new SearchCritera() { From = ["MAN"], To = "AGP", DepartureDate = "2023/07/01", Duration = 7 };
 
@@ -65,7 +66,7 @@ namespace Search
                 new() { Id = 13, Name = "Jumeirah Port Soller", ArrivalDate = new DateTime(2023, 6, 15), PricePerNight = 295, Nights = 10  },
             });
 
-            _search = new HolidaySearch(_flightService.Object, _holidayService.Object);
+            _search = new HolidayService(_flightService.Object, _holidayService.Object);
 
             var payload = new SearchCritera() { From = ["LTN", "LGW"], To = "PMI", DepartureDate = "2023/06/15", Duration = 10 };
 
@@ -105,7 +106,7 @@ namespace Search
 
             });
 
-            _search = new HolidaySearch(_flightService.Object, _holidayService.Object);
+            _search = new HolidayService(_flightService.Object, _holidayService.Object);
 
             var payload = new SearchCritera() { From = [], To = "LPA", DepartureDate = "2022/11/10", Duration = 14 };
 

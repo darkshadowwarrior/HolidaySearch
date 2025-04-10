@@ -1,9 +1,8 @@
 ﻿using HolidaySearch.Models;
-using Search;
 
 namespace HolidaySearch.Interfaces
 {
-    public interface IHolidaySearch
+    public interface IHolidayService
     {
         List<Holiday> Find(SearchCritera critera);
     }
