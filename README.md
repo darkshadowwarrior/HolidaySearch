@@ -4,23 +4,25 @@ Create a simple Holiday Search library that will return the best holidays with h
 
 Assumtions have been made
 
-1) Any london airport is a list of london airport codes
-2) Any airport is an empty array dipicting no filter requirements for airports
+1. Any london airport is a list of london airport codes
+2. Any airport is an empty array dipicting no filter requirements for airports
 
-The project has been broken down into 
+The project has been broken down into
 
 HolidaysSearch/
-  Models
-  Services
-  Interfaces
-  Data Layer
-  HolidaySearch
+Models
+Services
+Interfaces
+Data Layer
+HolidaySearch
 
 HolidaySearch.Tests
-  FlightServiceTests
-  HotelServiceTests
-  HolidaySearchTests
+FlightServiceTests
+HotelServiceTests
+HolidaySearchTests
 
 As the SearchCritera model has set the contract requirements no error handling has been done in this simple search library
 
-Given the Data Layer could be swaped out for some other datasouce no mapping from data model to domina model has been performed however there is no reason why this can't be done at a later date
+Given the Data Layer could be swaped out for some other datasouce no mapping from data model to domina model has been performed however there is no reason why this can't be done at a later date.
+
+As I got bored I decided to add a simple console app into the project just for fun. I will update this to prompt users with incorrect data at a later date.
