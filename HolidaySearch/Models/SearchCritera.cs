@@ -1,4 +1,4 @@
-﻿namespace Search
+﻿namespace HolidaySearch.Models
 {
     public class SearchCritera
     {
