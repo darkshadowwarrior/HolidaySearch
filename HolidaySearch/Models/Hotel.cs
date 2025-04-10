@@ -7,5 +7,6 @@
         public int PricePerNight { get; set; }
         public int Nights { get; set; }
         public string Name { get; set; }
+        public List<string> LocalAirports { get; set; }
     }
 }
