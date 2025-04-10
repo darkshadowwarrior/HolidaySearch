@@ -17,11 +17,15 @@ namespace Search
         public List<Holiday> Find(SearchCritera payload)
         {
             var flights = _flightService.FilterFlights(payload.From, payload.To, payload.DepartureDate);
+
             var hotels = _hotelService.FilterHotels(payload.To, payload.DepartureDate, payload.Duration);
+
+
+
 
             var holidays = (from flight in flights
                             from hotel in hotels
-                            where flight.DepartureDate >= hotel.ArrivalDate
+                            where (hotel.ArrivalDate >= flight.DepartureDate && hotel.ArrivalDate < flight.DepartureDate.AddDays(2))
                             select new Holiday
                             { 
                                 Flight = flight,
